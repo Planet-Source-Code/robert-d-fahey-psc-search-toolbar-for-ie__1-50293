@@ -1,0 +1,65 @@
+**************************************************************
+In NO WAY am I taking credit for this project.  I found 
+it on this man's site : Eduardo Morcillo, he is the creator
+of it as far as I know.  What I did was remove some of 
+the buttons he had and made it into a search bar for
+Planet Source Code.  I made a few changes to the code
+and added  some of my own things, but the majority
+of this code was written by the man above.  
+**************************************************************
+
+=======================================
+SETUP
+=======================================
+
+BE SURE ALL INSTANCES OF IE ARE CLOSED BEFORE STARTING THIS.
+
+I did not include the .DLL file mainly because PSC would have removed it anyhow, so you will need to do the following:
+
+1.) Unzip the project to a directory.  Create a SUB Directory in that folder called Bin or Compatibility.
+2.) Open the project and choose File, Make psctb.dll.
+3.) Save this file in the BIN or Compatibility SUB FOLDER that we created above.
+
+What that will do is always reference the original .DLL for compatibility.  If you start messing with the project and make
+some changes that will reflect the interface (Object interface, not the actual GUI), then it will break the compatibility and create
+a new classid, which we don't want.
+
+4.) Now click File, Make psctb.dll again, this time saving it to any location on your computer (I usually save it in the same folder 
+as the project, not the BIN or Compatibility folder).
+5.) The next thing is to set the Project Compatibility mode.....do this by choosing Project, then Properties.  A dialog box will appear, choose
+the Component Tab, then under the Version Compatibility section, choose BINARY COMPATIBILITY and then browse and locate the .DLL that
+we created in the BIN or Compatibility folder in step 3.
+6.) Now register the DLL using the RUN command (I.E. Start, Run, then type:  regsvr32 "D:\VB\IE Bands\ExplorerBands\PSC Toolbar\psctb.dll"
+But replace the above path to where you saved the DLL for the 2nd time (not the dll in the bin or compatibility subfolder).
+
+Now this part is a little tricky, but it's easy if you follow the steps:
+
+6.) Run the project in VB, you will notice nothing happens, you will have to open your regsirty (using RegEdit from the Run menu), then do a search 
+from the TOP of the registry (Be sure My Computer is highlighted) then do a search (Find) for PSCToolbar.  You should get alot of matches, you want
+to look for the PSCToolbar.Toolbar Folder and the Clsid subfolder inside there.  If you click on that folder, you will notice the key appear on the right,
+this is the Class ID (CLSID) for the toolbar object.  Copy this to notepad.
+
+7.) Now you have to install this as a registry key somewhere else in the registry.  To save time, just copy the following code into notepad and REPLACE
+the existing ClassID with the one you found in your registry:
+
+
+
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Toolbar]
+"{YOUR CLASSID BETWEEN THESE BRACES}"="PSC Toolbar"
+
+
+
+
+BE SURE TO COPY IT EXACTLY and then save the file with a .reg extension to it.
+
+8.) Once that is done, close the file (if you haven't already) then double click on it.  Windows should ask you if you want to add the information to the 
+Registry, say YES.  It should then confirm the addition of the registry key.
+
+9.) Open IE, right click on the toolbar and choose Planet Source Code and that's it!
+
+Now this version currently only searches the VB section of PSC, but I am working on a new version that will allow you to change that to whichever
+language you wish.
+
+Comments/Suggestions are always welcome.
